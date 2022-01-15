@@ -1,14 +1,12 @@
 package sketch
 
 import (
-	"fmt",
-	"image",
-	"image/png",
-	"image/jpeg",
-	"image/color",
-	"os",
-
-
+	"fmt"
+	"image"
+	"image/color"
+	"image/png"
+	"math/rand"
+	"os"
 
 	"github.com/fogleman/gg"
 )
@@ -36,8 +34,8 @@ type Sketch struct {
 	initialStrokeSize float64
 }
 
-func loadImage(filePath string) (image.Image, error){
-	file,err := os.Open(filePath)
+func loadImage(filePath string) (image.Image, error) {
+	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("source image could not be loaded: %w", err)
 	}
@@ -61,7 +59,7 @@ func saveOutput(img image.Image, filePath string) error {
 	if err != nil {
 		return err
 	}
-	
+
 	return nil
 }
 
