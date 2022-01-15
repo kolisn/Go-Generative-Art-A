@@ -9,20 +9,20 @@ import (
 )
 
 type UserParams struct {
+	StrokeRatio              float64
 	DestWidth                int
 	DestHeight               int
-	StrokeRatio              float64
-	StrokeReduction          float64
-	StrokeJitter             int
-	StrokeInversionThreshold float64
 	InitialAlpha             float64
+	StrokeReduction          float64
 	AlphaIncrease            float64
+	StrokeInversionThreshold float64
+	StrokeJitter             int
 	MinEdgeCount             int
 	MaxEdgeCount             int
 }
 
 type Sketch struct {
-	UserParams
+	UserParams        // embed for easier access
 	source            image.Image
 	dc                *gg.Context
 	sourceWidth       int
