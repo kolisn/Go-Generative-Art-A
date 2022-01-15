@@ -1,4 +1,4 @@
-module cramk-genart-a
+module github.com/cramk/Go-Generative-Art-A
 
 go 1.17
 
