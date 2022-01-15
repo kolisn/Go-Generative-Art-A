@@ -59,10 +59,35 @@ func (s *Sketch) Update() {
 	destY += float64(randRange(s.StrokeJitter))
 	edges := s.MinEdgeCount + rand.Intn(s.MaxEdgeCount-s.MinEdgeCount+1)
 
-	random := rand.Intn(10-1) + 1
+	/*random := rand.Intn(20-1) + 1
 	if random == 1 {
 		s.dc.SetRGBA255(r, g, b, int(s.InitialAlpha/2))
-		s.dc.DrawCircle(destX, destY, float64(edges)*15)
+		s.dc.DrawCircle(destX, destY, float64(edges)*18)
+
+	} else {
+		s.dc.SetRGBA255(r, g, b, int(s.InitialAlpha))
+		s.dc.DrawRegularPolygon(edges, destX, destY, s.strokeSize, rand.Float64())
+	}*/
+	random := rand.Intn(20-1) + 1
+	if random == 1 {
+
+		const S = 1024
+		for i := 0; i < rand.Intn(360); i += rand.Intn(20) {
+			s.dc.Push()
+
+			rndX1 := rand.Float64() * float64(s.sourceWidth)
+			rndY1 := rand.Float64() * float64(s.sourceHeight)
+			r1, g1, b1 := rgb255(s.source.At(int(rndX1), int(rndY1)))
+			gradSize := rand.Float64()
+			s.dc.SetRGBA255(r1, g1, b1, int(s.InitialAlpha))
+			s.dc.RotateAbout(gg.Radians(float64(i)), S/2, S/2)
+			edges := s.MinEdgeCount + rand.Intn(s.MaxEdgeCount-s.MinEdgeCount+1)
+			s.dc.DrawRegularPolygon(edges, destX, destY, s.strokeSize, gradSize)
+			s.dc.RotateAbout(gg.Radians(float64(i)), S/2, S/2)
+			s.dc.Fill()
+			s.dc.SetStrokeStyle(nil)
+			s.dc.Pop()
+		}
 
 	} else {
 		s.dc.SetRGBA255(r, g, b, int(s.InitialAlpha))
@@ -71,6 +96,15 @@ func (s *Sketch) Update() {
 
 	s.dc.Fill()
 
+	if s.strokeSize <= s.StrokeInversionThreshold*s.initialStrokeSize {
+		if (r+g+b)/3 < 128 {
+			s.dc.SetRGBA255(255, 255, 255, int(s.InitialAlpha*2))
+		} else {
+			s.dc.SetRGBA255(0, 0, 0, int(s.InitialAlpha*2))
+		}
+	}
+
+	s.strokeSize -= s.StrokeReduction * s.strokeSize
 	s.InitialAlpha += s.AlphaIncrease
 }
 
