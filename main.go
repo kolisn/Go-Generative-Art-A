@@ -37,7 +37,7 @@ func main() {
 		DestHeight:               2000,
 		InitialAlpha:             0.1,
 		StrokeReduction:          0.002,
-		AlphaIncrease:            0.06,
+		AlphaIncrease:            0.01,
 		StrokeInversionThreshold: 0.05,
 		StrokeJitter:             int(0.1 * float64(destWidth)),
 		MinEdgeCount:             3,
