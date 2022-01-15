@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"image/png"
 	"log"
 	"math/rand"
-	"net/http"
 	"os"
 	"time"
 
@@ -22,10 +20,7 @@ var (
 func main() {
 
 	img, err := loadImage(sourceImgName)
-	/*
-		use this for completely random results
-		img, err := loadRandomUnsplashImage(2000, 2000)
-	*/
+
 	if err != nil {
 		log.Panicln(err)
 	}
@@ -41,7 +36,7 @@ func main() {
 		StrokeInversionThreshold: 0.05,
 		StrokeJitter:             int(0.1 * float64(destWidth)),
 		MinEdgeCount:             3,
-		MaxEdgeCount:             4,
+		MaxEdgeCount:             10,
 	})
 
 	rand.Seed(time.Now().Unix())
@@ -51,18 +46,6 @@ func main() {
 	}
 
 	saveOutput(s.Output(), outputImgName)
-}
-
-func loadRandomUnsplashImage(width, height int) (image.Image, error) {
-	url := fmt.Sprintf("https://source.unsplash.com/random/%dx%d", width, height)
-	res, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-
-	img, _, err := image.Decode(res.Body)
-	return img, err
 }
 
 func loadImage(src string) (image.Image, error) {
