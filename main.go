@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/preslavrachev/generative-art-in-go/sketch"
+	"github.com/cramk/Go-Generative-Art-A/sketch"
 )
 
 var (
