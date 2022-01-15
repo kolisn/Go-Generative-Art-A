@@ -1,12 +1,9 @@
 package sketch
 
 import (
-	"fmt"
 	"image"
 	"image/color"
-	"image/png"
 	"math/rand"
-	"os"
 
 	"github.com/fogleman/gg"
 )
@@ -34,38 +31,7 @@ type Sketch struct {
 	initialStrokeSize float64
 }
 
-func loadImage(filePath string) (image.Image, error) {
-	file, err := os.Open(filePath)
-	if err != nil {
-		return nil, fmt.Errorf("source image could not be loaded: %w", err)
-	}
-	defer file.Close()
-	img, _, err := image.Decode(file)
-	if err != nil {
-		return nil, fmt.Errorf("source image format could not be decoded %w", err)
-	}
-
-	return img, nil
-}
-
-func saveOutput(img image.Image, filePath string) error {
-	f, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	err = png.Encode(f, img)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func NewSketch(source image.Image, userParams UserParams) *Sketch {
-	srcImg, err := loadImage(srcImagePath)
-
 	s := &Sketch{UserParams: userParams}
 	bounds := source.Bounds()
 	s.sourceWidth, s.sourceHeight = bounds.Max.X, bounds.Max.Y
