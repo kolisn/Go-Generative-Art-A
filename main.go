@@ -12,8 +12,8 @@ import (
 )
 
 var (
-	sourceImgName   = "source.jpg"
-	outputImgName   = "out.png"
+	sourceImgName   = "assets/sourceA.jpg"
+	outputImgName   = "assets/outA.png"
 	totalCycleCount = 5000
 )
 

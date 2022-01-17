@@ -59,15 +59,6 @@ func (s *Sketch) Update() {
 	destY += float64(randRange(s.StrokeJitter))
 	edges := s.MinEdgeCount + rand.Intn(s.MaxEdgeCount-s.MinEdgeCount+1)
 
-	/*random := rand.Intn(20-1) + 1
-	if random == 1 {
-		s.dc.SetRGBA255(r, g, b, int(s.InitialAlpha/2))
-		s.dc.DrawCircle(destX, destY, float64(edges)*18)
-
-	} else {
-		s.dc.SetRGBA255(r, g, b, int(s.InitialAlpha))
-		s.dc.DrawRegularPolygon(edges, destX, destY, s.strokeSize, rand.Float64())
-	}*/
 	random := rand.Intn(20-1) + 1
 	if random == 1 {
 
